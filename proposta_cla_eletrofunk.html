@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>OP7 Nexxo — Proposta · Clã do Eletrofunk</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Montserrat',sans-serif;background:#000C22;touch-action:none;-webkit-text-size-adjust:100%;}
+#deck{position:fixed;inset:0;overflow:hidden;}
+.slide{position:absolute;inset:0;width:100%;height:100%;display:none;flex-direction:column;overflow:hidden;}
+.slide.active{display:flex;}
+.dark{background:linear-gradient(145deg,#000C22 0%,#001638 50%,#000E28 100%);position:relative;}
+.bg-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(0,110,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,110,255,.04) 1px,transparent 1px);background-size:52px 52px;}
+.g1{position:absolute;width:500px;height:500px;border-radius:50%;top:-150px;right:-100px;background:radial-gradient(circle,rgba(0,110,255,.13) 0%,transparent 65%);pointer-events:none;}
+.g2{position:absolute;width:400px;height:400px;border-radius:50%;bottom:-100px;left:-80px;background:radial-gradient(circle,rgba(200,0,16,.07) 0%,transparent 65%);pointer-events:none;}
+.bar{position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#00214D,#006EFF,#FF6332);}
+#progress{position:fixed;top:0;left:0;height:3px;z-index:9999;background:linear-gradient(90deg,#006EFF,#FF6332);transition:width .35s ease;pointer-events:none;}
+.nav-arrow{position:fixed;top:50%;transform:translateY(-50%);z-index:9999;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.55);backdrop-filter:blur(10px);color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;outline:none;touch-action:manipulation;user-select:none;-webkit-user-select:none;transition:background .15s;}
+.nav-arrow:active{background:rgba(0,0,0,.85);}
+#bP{left:12px;} #bN{right:12px;}
+#nav{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.6);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1);border-radius:28px;padding:7px 14px;touch-action:manipulation;}
+.nd{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.25);border:none;cursor:pointer;outline:none;transition:all .2s;padding:5px;background-clip:content-box;touch-action:manipulation;}
+.nd.on{background:#FF6332;width:20px;border-radius:4px;background-clip:content-box;}
+.nctr{font-size:10px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:1px;min-width:28px;text-align:center;}
+
+/* S1 CAPA */
+#s1 .inner{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;padding:clamp(20px,5vw,56px) clamp(24px,6vw,80px) clamp(16px,4vw,44px);}
+.s1-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.s1-cred{display:flex;align-items:center;gap:8px;}
+.s1-dot{width:6px;height:6px;border-radius:50%;background:#FF6332;flex-shrink:0;}
+.s1-ctxt{font-size:clamp(8px,1.5vw,10px);font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);}
+.s1-logos{display:flex;align-items:center;gap:14px;}
+.s1-sep{width:1px;height:28px;background:rgba(255,255,255,.2);}
+.s1-hero{flex:1;display:flex;flex-direction:column;justify-content:center;gap:clamp(12px,2.5vw,20px);max-width:800px;padding:clamp(16px,3vw,32px) 0;}
+.s1-hl{font-size:clamp(26px,5.5vw,64px);font-weight:900;line-height:1.06;letter-spacing:-0.03em;color:#fff;}
+.s1-hl em{font-style:normal;background:linear-gradient(90deg,#5AB4FF,#8CCCFF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.s1-sub{font-size:clamp(12px,1.8vw,15px);font-weight:400;line-height:1.75;color:rgba(255,255,255,.58);max-width:560px;}
+.s1-bot{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.s1-tag{font-size:clamp(9px,1.2vw,10px);font-weight:700;color:rgba(255,255,255,.22);letter-spacing:1.5px;text-transform:uppercase;}
+.s1-badges{display:flex;gap:8px;}
+.s1-badge{padding:5px 12px;border-radius:20px;font-size:clamp(9px,1.2vw,10px);font-weight:700;border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.5);background:rgba(255,255,255,.05);}
+
+
+/* S2 INTRO */
+#s2-intro{background:#fff;}
+#s2-intro .inner{flex:1;display:flex;flex-direction:column;padding:clamp(32px,5vw,60px) clamp(24px,6vw,80px);justify-content:center;gap:clamp(24px,3.5vw,36px);}
+#s2-intro .pre{font-size:9px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#FF6332;margin-bottom:6px;}
+#s2-intro .title{font-size:clamp(22px,3.2vw,38px);font-weight:900;color:#00214D;letter-spacing:-.5px;line-height:1.1;max-width:700px;}
+#s2-intro .body{font-size:clamp(12px,1.5vw,14px);font-weight:400;color:#3A4260;line-height:1.75;max-width:660px;}
+#s2-intro .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,2vw,18px);margin-top:4px;}
+.pillar{background:#F5F7FB;border:1px solid rgba(0,33,77,.08);border-radius:14px;padding:clamp(16px,2.5vw,22px) clamp(14px,2vw,20px);display:flex;flex-direction:column;gap:8px;border-top:3px solid;}
+.pillar.p1{border-top-color:#006EFF;}
+.pillar.p2{border-top-color:#FF6332;}
+.pillar.p3{border-top-color:#00214D;}
+.pillar-icon{font-size:clamp(20px,2.5vw,26px);font-weight:900;font-family:'JetBrains Mono',monospace;}
+.pillar.p1 .pillar-icon{color:#006EFF;}
+.pillar.p2 .pillar-icon{color:#FF6332;}
+.pillar.p3 .pillar-icon{color:#00214D;}
+.pillar-title{font-size:clamp(13px,1.6vw,15px);font-weight:900;color:#00214D;}
+.pillar-desc{font-size:clamp(10px,1.2vw,12px);font-weight:400;color:#6B7490;line-height:1.55;}
+@media(max-width:600px){#s2-intro .pillars{grid-template-columns:1fr;gap:8px;}}
+
+/* S2 RESULTADOS */
+#s2{background:linear-gradient(145deg,#000C22 0%,#001638 55%,#000E28 100%);position:relative;}
+#s2 .bg-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(0,110,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,110,255,.04) 1px,transparent 1px);background-size:52px 52px;}
+#s2 .g1{position:absolute;width:500px;height:500px;border-radius:50%;top:-150px;right:-100px;background:radial-gradient(circle,rgba(0,110,255,.12) 0%,transparent 65%);pointer-events:none;}
+#s2 .g2{position:absolute;width:400px;height:400px;border-radius:50%;bottom:-100px;left:-80px;background:radial-gradient(circle,rgba(0,33,77,.15) 0%,transparent 65%);pointer-events:none;}
+#s2 .inner{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:clamp(24px,4vw,48px) clamp(24px,6vw,80px);gap:clamp(16px,2.5vw,24px);justify-content:center;}
+#s2 .pre{font-size:9px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:rgba(90,180,255,.9);margin-bottom:4px;}
+#s2 .title{font-size:clamp(20px,3vw,34px);font-weight:900;color:#fff;letter-spacing:-.5px;line-height:1.1;}
+#s2 .subtitle{font-size:clamp(10px,1.3vw,12px);font-weight:400;color:rgba(255,255,255,.4);margin-top:-4px;}
+#s2 .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,1.8vw,16px);width:100%;}
+.kc{background:rgba(255,255,255,.06);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:clamp(14px,2.2vw,22px) clamp(12px,1.8vw,18px);display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;position:relative;overflow:hidden;transition:background .2s;}
+.kc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,rgba(0,110,255,.6),rgba(90,180,255,.4));}
+.kc:hover{background:rgba(255,255,255,.10);}
+.kc-lbl{font-size:clamp(8.5px,1vw,10px);font-weight:800;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.4);}
+.kc-val{font-size:clamp(26px,3.8vw,44px);font-weight:900;letter-spacing:-1.5px;line-height:1;color:#fff;}
+.kc-desc{font-size:clamp(10px,1.2vw,12px);font-weight:500;color:rgba(255,255,255,.55);line-height:1.4;}
+#s2 .compare{background:rgba(255,255,255,.06);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:clamp(14px,2vw,20px) clamp(20px,3vw,32px);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;width:100%;}
+.cmp-txt{text-align:left;}
+.cmp-txt .cmp-lbl{font-size:clamp(11px,1.4vw,14px);font-weight:800;color:#fff;margin-bottom:5px;}
+.cmp-txt .cmp-src{font-size:clamp(9px,1.1vw,10px);color:rgba(255,255,255,.3);font-weight:500;line-height:1.6;max-width:380px;}
+.cmp-bars{display:flex;align-items:flex-end;gap:clamp(16px,3vw,36px);}
+.bar-item{display:flex;flex-direction:column;align-items:center;gap:5px;}
+.bar-block{width:clamp(56px,7vw,80px);border-radius:8px 8px 0 0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:clamp(10px,1.3vw,13px);font-weight:800;color:#fff;text-align:center;padding:8px 4px;}
+.bar-lbl{font-size:clamp(9px,1.1vw,10px);font-weight:700;color:rgba(255,255,255,.4);text-align:center;}
+
+/* S3 NEXO */
+#s3 .inner{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;padding:clamp(20px,4vw,40px) clamp(24px,6vw,72px);gap:clamp(14px,2.5vw,20px);justify-content:center;}
+#s3 .pre{font-size:9px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#FF6332;margin-bottom:4px;}
+#s3 .title{font-size:clamp(18px,2.5vw,28px);font-weight:900;color:#fff;letter-spacing:-.5px;}
+#s3 .screens{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(10px,1.8vw,16px);}
+#s3 .sb{display:flex;flex-direction:column;transition:transform .25s;}
+#s3 .sb:hover{transform:translateY(-3px);}
+#s3 .img-wrap{width:100%;aspect-ratio:16/9;flex-shrink:0;border-radius:10px 10px 0 0;overflow:hidden;border:1px solid rgba(255,255,255,.18);border-bottom:none;box-shadow:0 12px 32px rgba(0,0,0,.5);background:#001030;}
+#s3 .img-wrap img{width:100%;height:100%;object-fit:contain;object-position:top center;display:block;}
+#s3 .info{background:rgba(255,255,255,.08);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.15);border-top:none;border-radius:0 0 10px 10px;padding:clamp(10px,1.5vw,14px) clamp(12px,1.8vw,16px);}
+#s3 .lbl{font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:rgba(90,180,255,.9);margin-bottom:3px;}
+#s3 .t{font-size:clamp(11px,1.3vw,13px);font-weight:700;color:#fff;margin-bottom:3px;}
+#s3 .d{font-size:clamp(10px,1.2vw,12px);font-weight:400;color:rgba(255,255,255,.55);line-height:1.5;}
+#s3 .stat{display:inline-flex;align-items:center;background:rgba(0,110,255,.15);border:1px solid rgba(0,110,255,.3);border-radius:6px;padding:3px 8px;margin-top:5px;font-size:11px;font-weight:800;color:#60AAFF;}
+
+/* S4 PLANOS */
+#s4{background:#F5F7FB;}
+#s4 .wrap{flex:1;display:flex;flex-direction:column;padding:clamp(18px,3vw,30px) clamp(24px,6vw,80px);gap:clamp(10px,1.8vw,14px);}
+#s4 .head{text-align:center;}
+#s4 .pre{font-size:9px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#006EFF;margin-bottom:5px;}
+#s4 .title{font-size:clamp(18px,2.5vw,24px);font-weight:900;color:#00214D;letter-spacing:-.5px;}
+#s4 .sub{font-size:clamp(10px,1.3vw,12px);font-weight:400;color:#6B7490;margin-top:3px;}
+#s4 .planos{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,2vw,20px);flex:1;max-width:820px;margin:0 auto;width:100%;}
+.pl{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;display:flex;flex-direction:column;box-shadow:0 4px 16px rgba(0,33,77,.07);overflow:hidden;}
+.pl.rec{background:#00214D;border-color:#00214D;box-shadow:0 12px 40px rgba(0,33,77,.28);}
+.ph{padding:clamp(10px,1.8vw,15px) clamp(12px,2.2vw,20px) clamp(8px,1.3vw,12px);border-bottom:1px solid rgba(0,0,0,.07);}
+.pl.rec .ph{border-bottom-color:rgba(255,255,255,.1);background:rgba(0,110,255,.14);}
+.pb{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:9px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px;}
+.pb.std{background:rgba(0,0,0,.06);color:#6B7490;}
+.pb.hot{background:#FF6332;color:#fff;}
+.pn{font-size:clamp(12px,1.8vw,15px);font-weight:900;letter-spacing:-.3px;}
+.pl:not(.rec) .pn{color:#00214D;} .pl.rec .pn{color:#fff;}
+.pt{font-size:clamp(9px,1.1vw,11px);font-weight:500;margin-top:2px;}
+.pl:not(.rec) .pt{color:#6B7490;} .pl.rec .pt{color:rgba(255,255,255,.5);}
+.pp{font-size:clamp(20px,2.8vw,26px);font-weight:900;letter-spacing:-1px;margin-top:5px;}
+.pp span{font-size:clamp(10px,1.3vw,12px);font-weight:500;letter-spacing:0;}
+.pl:not(.rec) .pp{color:#00214D;} .pl.rec .pp{color:#FF6332;}
+.pi{flex:1;padding:clamp(8px,1.3vw,12px) clamp(12px,2.2vw,20px) clamp(6px,1vw,10px);display:flex;flex-direction:column;gap:clamp(4px,.8vw,6px);}
+.pitem{display:flex;gap:7px;align-items:flex-start;font-size:clamp(10px,1.2vw,12px);font-weight:500;}
+.pl:not(.rec) .pitem{color:#3A4260;} .pl.rec .pitem{color:rgba(255,255,255,.8);}
+.pck{width:14px;height:14px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;margin-top:1px;}
+.pl:not(.rec) .pck{background:rgba(0,110,255,.1);color:#006EFF;} .pl.rec .pck{background:rgba(255,255,255,.14);color:#fff;}
+.pck.ai{background:linear-gradient(135deg,#FF6332,#C80010);color:#fff;font-size:7px;}
+.ptxt{flex:1;line-height:1.35;}
+.psub{font-size:clamp(8.5px,1vw,10px);font-weight:400;opacity:.6;}
+.p-obs{margin:4px 12px 10px 12px;padding:8px 12px;background:rgba(255,99,50,.08);border:1px solid rgba(255,99,50,.22);border-radius:8px;font-size:clamp(9px,1.1vw,10px);font-weight:600;color:rgba(255,160,100,.9);line-height:1.55;}
+.pl:not(.rec) .p-obs{display:none;}
+
+/* S5 CTA */
+#s5 .inner{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;padding:clamp(24px,5vw,52px) clamp(20px,6vw,80px) clamp(20px,4vw,44px);align-items:center;text-align:center;justify-content:space-between;}
+#s5 .top{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(14px,2.5vw,18px);flex:1;}
+#s5 .pre{font-size:9px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#FF6332;}
+#s5 .title{font-size:clamp(22px,4vw,46px);font-weight:900;color:#fff;letter-spacing:-0.03em;line-height:1.1;max-width:680px;}
+#s5 .sub{font-size:clamp(12px,1.6vw,15px);font-weight:400;color:rgba(255,255,255,.55);max-width:500px;line-height:1.75;}
+#s5 .cta{display:inline-flex;align-items:center;gap:8px;padding:clamp(11px,1.8vw,14px) clamp(24px,3.5vw,34px);background:#FF6332;color:#fff;border-radius:10px;font-size:clamp(13px,1.6vw,14px);font-weight:800;border:none;cursor:pointer;transition:all .2s;box-shadow:0 8px 28px rgba(255,99,50,.4);text-decoration:none;font-family:'Montserrat',sans-serif;touch-action:manipulation;}
+#s5 .cta:active{background:#E04F18;transform:scale(.97);}
+#s5 .bot{display:flex;flex-direction:column;align-items:center;gap:clamp(8px,1.5vw,12px);}
+#s5 .logos{display:flex;align-items:center;gap:14px;}
+#s5 .lsep{width:1px;height:24px;background:rgba(255,255,255,.2);}
+#s5 .contacts{display:flex;gap:clamp(12px,3vw,24px);flex-wrap:wrap;justify-content:center;}
+#s5 .ci{font-size:clamp(10px,1.2vw,12px);font-weight:600;color:rgba(255,255,255,.3);}
+#s5 .partner{font-size:clamp(8.5px,1vw,9.5px);font-weight:700;color:rgba(255,255,255,.18);letter-spacing:1px;text-transform:uppercase;text-align:center;}
+
+/* MOBILE */
+@media(max-width:600px){
+  .nav-arrow{width:38px;height:38px;font-size:15px;}
+  #bP{left:5px;} #bN{right:5px;}
+  #nav{bottom:10px;padding:6px 10px;gap:5px;}
+  .s1-badges{display:none;}
+  #s2 .kpis{grid-template-columns:repeat(2,1fr);gap:8px;}
+  #s2 .compare{flex-direction:column;align-items:center;gap:12px;}
+  #s3 .screens{grid-template-columns:1fr;overflow-y:auto;}
+  #s4 .planos{grid-template-columns:1fr;overflow-y:auto;}
+  #s5 .contacts{flex-direction:column;gap:4px;}
+}
+
+</style>
+</head>
+<body>
+<div id="progress" style="width:20%"></div>
+
+<div id="deck">
+
+<!-- S1 CAPA -->
+<div class="slide active dark" id="s1">
+  <div class="bg-grid"></div><div class="g1"></div><div class="g2"></div>
+  <div class="inner">
+    <div class="s1-top">
+      <div class="s1-cred"><div class="s1-dot"></div><span class="s1-ctxt">Proposta Comercial &middot; Marketing + Nexxo</span></div>
+      <div class="s1-logos">
+        <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iQ2FtYWRhXzIiIGRhdGEtbmFtZT0iQ2FtYWRhIDIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHZpZXdCb3g9IjAgMCAxMTk5LjM4IDExOTkuMzgiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZpbGw6ICNmZmY7CiAgICAgIH0KCiAgICAgIC5jbHMtMiB7CiAgICAgICAgZmlsbDogdXJsKCNHcmFkaWVudGVfc2VtX25vbWVfMTcpOwogICAgICB9CgogICAgICAuY2xzLTMgewogICAgICAgIGZpbGw6IHVybCgjR3JhZGllbnRlX3NlbV9ub21lXzI1KTsKICAgICAgfQogICAgPC9zdHlsZT4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iR3JhZGllbnRlX3NlbV9ub21lXzI1IiBkYXRhLW5hbWU9IkdyYWRpZW50ZSBzZW0gbm9tZSAyNSIgeDE9IjMzNy4xNiIgeTE9Ijc2OC41OSIgeDI9Ijg2Ny43NyIgeTI9IjEzNDguMTciIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjYzgwMDEwIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iLjUiIHN0b3AtY29sb3I9IiNmZjYzMzIiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYzEwZjAwIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJHcmFkaWVudGVfc2VtX25vbWVfMTciIGRhdGEtbmFtZT0iR3JhZGllbnRlIHNlbSBub21lIDE3IiB4MT0iLTIzOC4yMiIgeTE9Ii0zMjguMyIgeDI9IjEzMjEuMjEiIHkyPSIxMzc1LjA3IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzAwMjE0ZCIvPgogICAgICA8c3RvcCBvZmZzZXQ9Ii41IiBzdG9wLWNvbG9yPSIjMDA2ZWZmIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzAwMDUzMyIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPGcgaWQ9IkNhbWFkYV8xLTIiIGRhdGEtbmFtZT0iQ2FtYWRhIDEiPgogICAgPGc+CiAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMyIgZD0iTTExNjEuNjYsMTAzOS4yMWMtMTMuNjcsNjMuMzQtNjQuNDUsMTEyLjQ1LTEyOC42NiwxMjMuNjktMTM1LjA5LDIzLjYtMjgxLjA0LDM2LjQ5LTQzMy4zMiwzNi40OXMtMjk4LjIxLTEyLjg5LTQzMy4zLTM2LjQ5Yy02My4yMy0xMS4wNi0xMTMuNDMtNTguODUtMTI3Ljk5LTEyMC43OSwyMy45OSwzOS43Niw2NS4xNyw2OC40MywxMTMuODMsNzYuNjksMTM5LjM0LDIzLjYsMjg5Ljg3LDM2LjQ5LDQ0Ni45NCwzNi40OXMzMDcuNi0xMi44OSw0NDYuOTQtMzYuNDljNDkuODQtOC40NSw5MS44LTM4LjMzLDExNS41Ni03OS41OVoiLz4KICAgICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMTE5OS4zOCw1OTkuNjhjMCwxNTIuMjgtMTIuODksMjk4LjIzLTM2LjUxLDQzMy4zMi0uMzYsMi4wNy0uNzcsNC4xMy0xLjIxLDYuMTZ2LjA0Yy0yMy43Niw0MS4yNS02NS43Miw3MS4xNC0xMTUuNTYsNzkuNTktMTM5LjM0LDIzLjYtMjg5Ljg3LDM2LjQ5LTQ0Ni45NCwzNi40OXMtMzA3LjYtMTIuODktNDQ2Ljk0LTM2LjQ5Yy00OC42Ny04LjI2LTg5Ljg0LTM2LjkzLTExMy44My03Ni42OS0uNzMtMy0xLjM0LTYuMDMtMS44OC05LjFDMTIuODksODk3LjkxLDAsNzUxLjk2LDAsNTk5LjY4UzEyLjg5LDMwMS40NywzNi41MSwxNjYuMzhjMTEuNi02Ni4zLDYzLjU3LTExOC4yOSwxMjkuODctMTI5Ljg3QzMwMS40NywxMi44OSw0NDcuNDIsMCw1OTkuNjgsMHMyOTguMjMsMTIuODksNDMzLjMyLDM2LjUxYzY2LjMsMTEuNTgsMTE4LjI3LDYzLjU3LDEyOS44NywxMjkuODcsMjMuNjIsMTM1LjA5LDM2LjUxLDI4MS4wNCwzNi41MSw0MzMuM1oiLz4KICAgICAgPGc+CiAgICAgICAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNMzA2Ljc3LDM3MS4yNGMtMTAxLjUsMC0xODMuOCw4Ny42NC0xODMuOCwxOTUuNzZzODIuMywxOTUuNzgsMTgzLjgsMTk1Ljc4LDE4My43OC04Ny42NiwxODMuNzgtMTk1Ljc4LTgyLjI4LTE5NS43Ni0xODMuNzgtMTk1Ljc2Wk0zMjMuNjksNzI2LjMxYy0zNS4xNSwzLjQ4LTcwLjcyLTY1LjQ5LTc5LjQ3LTE1NC4wMS04Ljc0LTg4LjU0LDEyLjY2LTE2My4xMSw0Ny43OC0xNjYuNTksMzUuMTUtMy40OCw3MC43Miw2NS40OSw3OS40NywxNTQuMDEsOC43NCw4OC41NC0xMi42NiwxNjMuMTEtNDcuNzgsMTY2LjU5WiIvPgogICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTY5Mi4xMywzODIuMTNoLTIwMy4zOGMtMy4yOSwwLTUuOTUsMi42Ny01Ljk1LDUuOTV2Mi45YzAsMy4xNywxLjQ2LDYuMTcsMy45Niw4LjEybDI1LjM0LDE5Ljc5YzEuNTMsMS4xOSwyLjQyLDMuMDIsMi40Miw0Ljk2djI5MC4zNWwtMjguMTgsMjQuNjVjLTIuMjYsMS45Ny0zLjU1LDQuODMtMy41NSw3LjgzdjUuNTZjMCwxLjk4LDEuNjEsMy41OSwzLjU5LDMuNTloMTc0LjU0YzIuMzYsMCw0LjI3LTEuOTEsNC4yNy00LjI3di00LjI3YzAtMy45Mi0yLjA3LTcuNTUtNS40NS05LjU0bC0zMy4yMS0yMi42MXYtMTAzLjA0aDgwLjUxYzI0LjEsMCw0Ny44Ni02Ljg3LDY3LjctMjAuNTYsMjQuMDQtMTYuNiw0OC4wOC00NS44NCw0OC4wOC05Ni40LDAtNTQuNzYtMzMuMTYtODMuMzYtNjMuNTUtOTguMDYtMjAuODktMTAuMTEtNDMuOTQtMTQuOTUtNjcuMTQtMTQuOTVaTTYyOC40OSw1ODMuNzVjLTEuNjctLjE4LTIuOTQtMS41OC0yLjk0LTMuMjZ2LTE2Mi42OGMwLTExLjg5LDgyLjI2LTEzLjg3LDgyLjI2LDgzLjI4LDAsODYuMTItNjQuNjUsODQuMjEtNzkuMzIsODIuNjdaIi8+CiAgICAgICAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNNzk5LjY0LDM4Mi42NmMtMS4zMy4wMi0xLjk2LDEuNjMtMS4wMiwyLjU2bDQuNDMsNC4zOGMxNy4wMSwxNi44MiwzMS41MiwzNy44MiwzNy44Niw2MC44OGwxLjQzLDYuOTNjLjM2LDEuNzIsMS44NiwyLjk1LDMuNjEsMi45Niw3LC4wMiwyMy45OC4wNywyNi4xMS4wN2gxNTUuMTJjMi45OCwwLDQuODMsMy4yNCwzLjMyLDUuODFsLTE2Ny42OSwyODMuOTJjLTEuNDgsMi41LjMzLDUuNjYsMy4yMyw1LjY2aDEwMy4wMmMzLjIsMCw2LjAyLTIuMSw2Ljk0LTUuMTdsOTguMjUtMzI3LjU5YzIuMTgtNy4yOCwzLjI5LTE0Ljg0LDMuMjktMjIuNDV2LTE2LjI4YzAtMS4yMy0xLTIuMjMtMi4yMy0yLjIzaC0yNDEuMTJjLTIuMDEsMC0yNS41LjM4LTM0LjU4LjUzWiIvPgogICAgICA8L2c+CiAgICA8L2c+CiAgICA8Zz4KICAgICAgPHBvbHlnb24gY2xhc3M9ImNscy0xIiBwb2ludHM9IjQyOS4wMiA5NDAuNDIgNDEwLjU4IDk0MC42MiAzNzcuODMgOTA3LjUyIDM2OCA4OTcuMzMgMzYyLjE4IDg5MS4xNiAzMzQuMzcgODYyLjQ5IDMzNC4zOSA5NDAuNTcgMzEzLjg3IDk0MC43IDMxMy44NiA4MzIuNDMgMzMzLjI1IDgzMi40NyAzNTUuNTMgODU0Ljg3IDQwOC4zMyA5MDguMzEgNDA4LjggODkwLjgzIDQwOC44MiA4MzIuNDIgNDI5LjM5IDgzMi40MyA0MjguOTQgODYxLjkyIDQyOS4wMiA5NDAuNDIiLz4KICAgICAgPHBvbHlnb24gY2xhc3M9ImNscy0xIiBwb2ludHM9IjU2MC4wMiA4NzcuMDEgNTYwLjExIDg5NS41MSA0OTEuOCA4OTUuNDIgNDkxLjg3IDkyMS45NiA1NzEuMzIgOTIxLjkxIDU3MS4yNCA5NDAuNTUgNDcxLjQ4IDk0MC41NSA0NzEuNCA4MzIuMzkgNTU1LjIzIDgzMi4zMiA1NzAuOTYgODMyLjQgNTcwLjkyIDg1MC43NSA0OTEuOTUgODUwLjgzIDQ5MS45OSA4NjMuODcgNDkyLjIgODc3LjAzIDU2MC4wMiA4NzcuMDEiLz4KICAgICAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNODc4LjEsOTE0LjAyYy0xNy40MywzMC4xNC02Mi4wOCwzNi40My05Mi4xOSwyMS4yMS0xNy4wNS04LjYxLTI4LjAxLTI0LjcyLTI5LjczLTQzLjE1LTEuOTktMjEuMzksNy4xMy0zOS45NSwyNC44MS01MS41MiwyNi45LTE3LjYsNzIuMzEtMTQuNzIsOTMuNTcsMTIuODYsMTMuMzQsMTcuMywxNC41MSw0MS42MywzLjU0LDYwLjU5Wk04NDIuNDcsOTE5LjljMTcuMjQtNy4xNywyNS43LTI0LjI5LDIxLjYyLTQxLjg1LTYuNDgtMjcuODYtNDEuNTgtMzUuNTktNjYuMzgtMjQuNy0xNC4yLDYuMjQtMjIuMTksMTkuODctMjEuNSwzNC44NC42NiwxNC4zOSw5LjQ3LDI2LjcxLDIzLjU2LDMyLjI0czI4LjY4LDUuMzEsNDIuNy0uNTNaIi8+CiAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTczNC41NSw5NDAuMzNsLTI2Ljg2LjE1LTM4LjgyLTQwLjQ2LTM4Ljg1LDQwLjU3LTI2Ljk1LS4wNSw1Mi40NC01NC41NC0zMC43Ni0zMS42MS0yMS40Ny0yMi4xNSwyNC4wMS0uMDJjMy41OC0uMiw0LjY4LDEuMzgsNi45NiwzLjc1bDM0Ljg5LDM2LjQ2LDM3Ljg4LTQwLjAyLDI3LjY2LS4zLTUyLjExLDUzLjg3LDUxLjk4LDU0LjM1WiIvPgogICAgPC9nPgogIDwvZz4KPC9zdmc+" style="height:clamp(34px,5vw,48px);width:auto;" alt="OP7 Nexxo">
+      </div>
+    </div>
+    <div class="s1-hero">
+      <div class="s1-hl">Seus artistas em evid&ecirc;ncia.<br><em>Sua agenda sempre cheia.</em></div>
+      <p class="s1-sub">Marketing, tecnologia e atendimento integrados em uma &uacute;nica plataforma para o Cl&atilde; do Eletrofunk promover seu casting e fechar mais shows para os artistas agenciados &mdash; com controle total, em tempo real.</p>
+    </div>
+    <div class="s1-bot">
+      <div class="s1-tag">op7franchising.com &middot; Nexxo</div>
+      <div class="s1-badges"><div class="s1-badge">Casting</div><div class="s1-badge">Demanda</div><div class="s1-badge">Fechamento</div></div>
+    </div>
+  </div>
+  <div class="bar"></div>
+</div>
+
+<!-- S2 INTRO -->
+<div class="slide" id="s2-intro">
+  <div class="inner">
+    <div><div class="pre">Sobre a OP7</div><div class="title">O time de marketing<br>que trabalha pelo seu casting.</div></div>
+    <div class="body">Somos a estrutura de marketing e tecnologia que coloca os artistas do Cl&atilde; do Eletrofunk na frente de quem contrata shows. Promovemos cada agenciado, geramos contatos qualificados de contratantes e acompanhamos toda negocia&ccedil;&atilde;o em tempo real &mdash; dentro de um &uacute;nico ecossistema, a OP7 Nexxo, para que a ag&ecirc;ncia tenha previsibilidade de agenda sem depender de indica&ccedil;&atilde;o ou sorte.</div>
+    <div class="pillars">
+      <div class="pillar p1"><div class="pillar-icon">01</div><div class="pillar-title">Casting</div><div class="pillar-desc">Posicionamento dos artistas agenciados onde o contratante procura: redes, m&iacute;dia e busca.</div></div>
+      <div class="pillar p2"><div class="pillar-icon">02</div><div class="pillar-title">Demanda</div><div class="pillar-desc">Campanhas que geram contato de quem quer contratar show, para toda a carteira.</div></div>
+      <div class="pillar p3"><div class="pillar-icon">03</div><div class="pillar-title">Fechamento</div><div class="pillar-desc">Atendimento e funil que transformam interesse em data fechada.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- S3 NEXXO NA PRATICA -->
+<div class="slide dark" id="s3">
+  <div class="bg-grid"></div><div class="g1"></div><div class="g2"></div>
+  <div class="inner">
+    <div><div class="pre">OP7 Nexxo na pr&aacute;tica</div><div class="title">Cada contato de contratante,<br>voc&ecirc; acompanha em tempo real.</div></div>
+    <div class="screens">
+      <div class="sb">
+        <div class="info" style="padding:clamp(18px,3vw,28px);"><div class="lbl">Campanhas</div><div class="t">Investimento, contatos e custo por lead</div><div class="d">Saiba exatamente quanto custou cada contratante que chegou at&eacute; a ag&ecirc;ncia.</div></div>
+      </div>
+      <div class="sb">
+        <div class="info" style="padding:clamp(18px,3vw,28px);"><div class="lbl">CRM de Contratantes</div><div class="t">Funil completo do contato ao fechamento</div><div class="d">Nenhuma data perdida por falta de acompanhamento &mdash; para qualquer artista do casting.</div></div>
+      </div>
+      <div class="sb">
+        <div class="info" style="padding:clamp(18px,3vw,28px);"><div class="lbl">Agente de IA</div><div class="t">Responde e qualifica 24h no WhatsApp</div><div class="d">O contratante recebe resposta na hora e j&aacute; entra no funil de fechamento.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S4 PLANO -->
+<div class="slide" id="s4">
+  <div class="wrap">
+    <div class="head">
+      <div class="pre">Plano</div>
+      <div class="title">Tudo incluso. Um investimento s&oacute;.</div>
+      <div class="sub">Marketing completo, plataforma Nexxo e Agente de IA de atendimento &mdash; em um &uacute;nico plano.</div>
+    </div>
+    <div class="planos" style="justify-content:center;">
+      <div class="pl rec" style="max-width:440px;">
+        <div class="ph"><div class="pb hot">Plano Completo</div><div class="pn">Marketing + Nexxo + IA</div><div class="pt">Casting, agenda e fechamento num s&oacute; lugar</div><div class="pp"><span>R$&nbsp;</span>2.000<span>/m&ecirc;s</span></div></div>
+        <div class="pi">
+          <div class="pitem"><div class="pck">&#10003;</div><div class="ptxt">Gest&atilde;o de Redes Sociais<div class="psub">6 publica&ccedil;&otilde;es + 4 roteiros + stories</div></div></div>
+          <div class="pitem"><div class="pck">&#10003;</div><div class="ptxt">Criativos de Performance<div class="psub">Focados na divulga&ccedil;&atilde;o do casting e dos shows</div></div></div>
+          <div class="pitem"><div class="pck">&#10003;</div><div class="ptxt">Campanhas Pagas<div class="psub">Meta, Google e demais canais para atrair contratantes</div></div></div>
+          <div class="pitem"><div class="pck">&#10003;</div><div class="ptxt">Roteiros para Reels<div class="psub">Bastidores, palco, lan&ccedil;amentos e presen&ccedil;a dos artistas</div></div></div>
+          <div class="pitem"><div class="pck">&#10003;</div><div class="ptxt">Edi&ccedil;&atilde;o de V&iacute;deos<div class="psub">3 edi&ccedil;&otilde;es mensais</div></div></div>
+          <div class="pitem"><div class="pck">&#10003;</div><div class="ptxt">Relat&oacute;rios de Performance mensais</div></div>
+          <div class="pitem"><div class="pck">&#10003;</div><div class="ptxt">Acesso &agrave; plataforma OP7 Nexxo<div class="psub">Todo o marketing e a agenda numa s&oacute; tela</div></div></div>
+          <div class="pitem"><div class="pck ai">IA</div><div class="ptxt" style="font-weight:700;color:#FFB090;">Agente de IA de Atendimento<div class="psub" style="color:rgba(255,255,255,.4);">Responde, qualifica e encaminha contratantes 24h via WhatsApp</div></div></div>
+        </div>
+        <div class="p-obs">O custo de tokens do Agente de IA &eacute; vari&aacute;vel, proporcional ao uso e cobrado diretamente pela plataforma de IA &mdash; n&atilde;o inclu&iacute;do na mensalidade.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S5 CTA -->
+<div class="slide dark" id="s5">
+  <div class="bg-grid"></div><div class="g1"></div><div class="g2"></div>
+  <div class="inner" style="justify-content:center;align-items:flex-start;text-align:left;">
+    <div class="pre">Pr&oacute;ximo passo</div>
+    <div class="s1-hl" style="font-size:clamp(24px,4.5vw,52px);margin:12px 0 20px;">O Cl&atilde; j&aacute; tem os artistas.<br><em>Agora vai ter a agenda cheia.</em></div>
+    <p class="s1-sub" style="margin-bottom:32px;">Marketing, tecnologia e atendimento prontos para trabalhar pela agenda de todos os agenciados do Cl&atilde; do Eletrofunk a partir de hoje.</p>
+    <a href="#" style="display:inline-block;background:#FF6332;color:#fff;padding:16px 36px;border-radius:10px;font-weight:800;font-size:clamp(14px,2vw,17px);text-decoration:none;box-shadow:0 8px 30px rgba(255,99,50,.32);">Quero come&ccedil;ar agora &rarr;</a>
+    <div style="margin-top:28px;font-size:12px;color:rgba(255,255,255,.4);">op7franchising.com &middot; contato@op7franchising.com</div>
+  </div>
+  <div class="bar"></div>
+</div>
+
+</div>
+
+<!-- NAV -->
+<button class="nav-arrow" id="bP">&#8249;</button>
+<button class="nav-arrow" id="bN">&#8250;</button>
+<div id="nav">
+  <button class="nd on" onclick="goTo(0)"></button>
+  <button class="nd" onclick="goTo(1)"></button>
+  <button class="nd" onclick="goTo(2)"></button>
+  <button class="nd" onclick="goTo(3)"></button>
+  <button class="nd" onclick="goTo(4)"></button>
+  <span class="nctr">1 / 5</span>
+</div>
+
+<script>
+
+var slides=document.querySelectorAll('.slide'),dots=document.querySelectorAll('.nd'),ctr=document.getElementById('nctr'),prog=document.getElementById('progress'),total=slides.length,cur=0;
+function goTo(n){slides[cur].classList.remove('active');dots[cur].classList.remove('on');cur=((n%total)+total)%total;slides[cur].classList.add('active');dots[cur].classList.add('on');ctr.textContent=(cur+1)+' / '+total;if(prog)prog.style.width=((cur+1)/total*100)+'%';}
+document.getElementById('bN').addEventListener('click',function(){goTo(cur+1);});
+document.getElementById('bP').addEventListener('click',function(){goTo(cur-1);});
+for(var i=0;i<dots.length;i++){(function(idx){dots[idx].addEventListener('click',function(){goTo(idx);})})(i);}
+document.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==='ArrowDown')goTo(cur+1);if(e.key==='ArrowLeft'||e.key==='ArrowUp')goTo(cur-1);});
+var tx=0,ty=0;
+document.addEventListener('touchstart',function(e){tx=e.changedTouches[0].screenX;ty=e.changedTouches[0].screenY;},false);
+document.addEventListener('touchend',function(e){var dx=e.changedTouches[0].screenX-tx,dy=e.changedTouches[0].screenY-ty;if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>40){goTo(dx<0?cur+1:cur-1);}},false);
+if(prog)prog.style.width=(1/total*100)+'%';
+
+</script>
+</body>
+</html>
